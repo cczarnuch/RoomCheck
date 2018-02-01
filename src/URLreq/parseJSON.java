@@ -1,5 +1,9 @@
 package URLreq;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,25 +11,33 @@ import org.json.JSONObject;
 
 public class parseJSON {
 
-	public static void main(String[] args) throws JSONException {
-		JSONObject timetable = JSONtoObj();
+	public static void main(String[] args) throws JSONException, IOException {
+		JSONObject timetable = JSONtoObj(true);
 		freeTime(timetable);
 
 	}
 	
 	
-	public static JSONObject JSONtoObj() {
-		//Goes to URL and gets the json file
-		String response = getURL.getJSON("https://www.timetablegenerator.io/api/v2/school/mcmaster/");
-		//file is stored in a JSONObject type
-		JSONObject myresponse;
+	public static JSONObject JSONtoObj(Boolean Online) throws JSONException, IOException {
 		
-		try {
-			//converts the response from the URL to JSONObject type; else return null
-			myresponse = new JSONObject(response.toString());
+		if (Online) {
+			//Goes to URL and gets the json file
+			String response = getURL.getJSON("https://www.timetablegenerator.io/api/v2/school/mcmaster/");
+			//file is stored in a JSONObject type
+			JSONObject myresponse;
+			
+			try {
+				//converts the response from the URL to JSONObject type; else return null
+				myresponse = new JSONObject(response.toString());
+				return myresponse;
+			} catch (Exception e) {e.printStackTrace();}
+			return null;
+		} else {
+			BufferedReader in = new BufferedReader(new FileReader("timetables.json"));
+			JSONObject myresponse = new JSONObject(in.readLine());
+			in.close();
 			return myresponse;
-		} catch (Exception e) {e.printStackTrace();}
-		return null;
+		}
 	}
 	
 	
