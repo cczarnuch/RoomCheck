@@ -27,7 +27,7 @@ public class parseJSON {
 			JSONObject myresponse;
 			
 			try {
-				//converts the response from the URL to JSONObject type; else return null
+				//converts the response from the URL ttoo JSONObject type; else return null
 				myresponse = new JSONObject(response.toString());
 				return myresponse;
 			} catch (Exception e) {e.printStackTrace();}
@@ -63,31 +63,19 @@ public class parseJSON {
 				if (classes.has("C")) {
 					JSONObject lectures = classes.getJSONObject("C");
 					
-					//checks for all sections
-					if (lectures.has("C01")) {
-						JSONObject section = lectures.getJSONObject("C01");
-						JSONArray r_periods = section.getJSONArray("r_periods");
+					for (Object sect1 : lectures.keySet()) {
+						String keyStr1 = (String)sect1;
+						Object keyval1 = lectures.get(keyStr1);
 						
-						//iterates through all of the core times in a week
-						for (int i = 0; i < r_periods.length(); i++) {
-							JSONObject period = r_periods.getJSONObject(i);
-							System.out.println(keyStr + ": C01:" + period);
-						}
-					} if (lectures.has("C02")) {
-						JSONObject section = lectures.getJSONObject("C02");
-						JSONArray r_periods = section.getJSONArray("r_periods");
-						
-						for (int i = 0; i < r_periods.length(); i++) {
-							JSONObject period = r_periods.getJSONObject(i);
-							System.out.println(keyStr + ": C02:" + period);
-						}
-					} if (lectures.has("C03")) {
-						JSONObject section = lectures.getJSONObject("C03");
-						JSONArray r_periods = section.getJSONArray("r_periods");
-						
-						for (int i = 0; i < r_periods.length(); i++) {
-							JSONObject period = r_periods.getJSONObject(i);
-							System.out.println(keyStr + ": C03:" + period);
+						if (keyval1 instanceof JSONObject) {
+							JSONObject section = (JSONObject)keyval1;
+							JSONArray r_periods = section.getJSONArray("r_periods");
+							
+							//iterates through all of the core times in a week
+							for (int i = 0; i < r_periods.length(); i++) {
+								JSONObject period = r_periods.getJSONObject(i);
+								System.out.println(keyStr + ": " + keyStr1 + ": " + period);
+							}
 						}
 					}
 				}
@@ -96,21 +84,19 @@ public class parseJSON {
 				if (classes.has("T")) {
 					JSONObject tutorials = classes.getJSONObject("T");
 					
-					if (tutorials.has("T01")) {
-						JSONObject section = tutorials.getJSONObject("T01");
-						JSONArray r_periods = section.getJSONArray("r_periods");
+					for (Object sect2 : tutorials.keySet()) {
+						String keyStr2 = (String)sect2;
+						Object keyval2 = tutorials.get(keyStr2);
 						
-						for (int i = 0; i < r_periods.length(); i++) {
-							JSONObject period = r_periods.getJSONObject(i);
-							System.out.println(keyStr + ": T01:" + period);
-						}
-					} if (tutorials.has("T02")) {
-						JSONObject section = tutorials.getJSONObject("T02");
-						JSONArray r_periods = section.getJSONArray("r_periods");
-						
-						for (int i = 0; i < r_periods.length(); i++) {
-							JSONObject period = r_periods.getJSONObject(i);
-							System.out.println(keyStr + ": T02:" + period);
+						if (keyval2 instanceof JSONObject) {
+							JSONObject section = (JSONObject)keyval2;
+							JSONArray r_periods = section.getJSONArray("r_periods");
+							
+							//iterates through all of the core times in a week
+							for (int i = 0; i < r_periods.length(); i++) {
+								JSONObject period = r_periods.getJSONObject(i);
+								System.out.println(keyStr + ": " + keyStr2 + ": " + period);
+							}
 						}
 					}
 				}
@@ -119,21 +105,19 @@ public class parseJSON {
 				if (classes.has("L")) {
 					JSONObject labs = classes.getJSONObject("L");
 					
-					if (labs.has("L01")) {
-						JSONObject section = labs.getJSONObject("L01");
-						JSONArray r_periods = section.getJSONArray("r_periods");
+					for (Object sect3 : labs.keySet()) {
+						String keyStr3 = (String)sect3;
+						Object keyval3 = labs.get(keyStr3);
 						
-						for (int i = 0; i < r_periods.length(); i++) {
-							JSONObject period = r_periods.getJSONObject(i);
-							System.out.println(keyStr + ": L01:" + period);
-						}
-					} if (labs.has("L02")) {
-						JSONObject section = labs.getJSONObject("L02");
-						JSONArray r_periods = section.getJSONArray("r_periods");
-						
-						for (int i = 0; i < r_periods.length(); i++) {
-							JSONObject period = r_periods.getJSONObject(i);
-							System.out.println(keyStr + ": L02:" + period);
+						if (keyval3 instanceof JSONObject) {
+							JSONObject section = (JSONObject)keyval3;
+							JSONArray r_periods = section.getJSONArray("r_periods");
+							
+							//iterates through all of the core times in a week
+							for (int i = 0; i < r_periods.length(); i++) {
+								JSONObject period = r_periods.getJSONObject(i);
+								System.out.println(keyStr + ": " + keyStr3 + ": " + period);
+							}
 						}
 					}
 				}
