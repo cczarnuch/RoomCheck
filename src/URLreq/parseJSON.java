@@ -1,5 +1,8 @@
 package URLreq;
 
+import java.util.Iterator;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,7 +29,18 @@ public class parseJSON {
 	
 	
 	public static void freeTime(JSONObject timetable) {
+		JSONObject courses = timetable.getJSONObject("timetables").getJSONObject("2017").getJSONObject("6").getJSONObject("courses");
 		
+		for (Object key : courses.keySet()) {
+			String keyStr = (String)key;
+			Object keyval = courses.get(keyStr);
+			
+			System.out.println("key: " + keyStr + "\nvalue: " + keyval);
+			
+			if (keyval instanceof JSONObject) {
+				System.out.println(keyval+"\n\n");
+			}
+		}
 	}
 
 }
