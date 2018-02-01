@@ -7,6 +7,7 @@ public class parseJSON {
 
 	public static void main(String[] args) throws JSONException {
 		JSONObject timetable = JSONtoObj();
+		System.out.println("name: " + timetable.getString("name"));
 
 	}
 	
