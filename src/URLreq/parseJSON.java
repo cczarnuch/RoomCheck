@@ -13,12 +13,12 @@ public class parseJSON {
 
 	public static void main(String[] args) throws JSONException, IOException {
 		JSONObject timetable = JSONtoObj(true);
-		freeTime(timetable);
+		freeTime(timetable, 17.0+(21.0/60), 3, 1, "TSH B126");
 
 	}
 	
 	
-	public static JSONObject JSONtoObj(Boolean Online) throws JSONException, IOException {
+	private static JSONObject JSONtoObj(Boolean Online) throws JSONException, IOException {
 		
 		if (Online) {
 			//Goes to URL and gets the json file
@@ -41,10 +41,37 @@ public class parseJSON {
 	}
 	
 	
+	private static boolean checkFree(JSONObject period, double time, int day, int term, String room) {
+		try {
+			String start = period.getString("start");
+			String[] start2 = start.split(":");
+			String end = period.getString("end");
+			String[] end2 = end.split(":");
+			
+			double pstart = Double.parseDouble(start2[0]) + (Double.parseDouble(start2[1]) / 60);
+			double pend = Double.parseDouble(end2[0]) + (Double.parseDouble(end2[1]) / 60);
+			
+			int pterm = period.getInt("term");
+			int pday = period.getInt("day");
+			String proom = period.getString("room");
+			
+			
+			if (proom.equals(room) && pday == day && pterm % 2 == term % 2 && pstart <= time && time <= pend) {
+				return true;
+			} else return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
 	//This method is used to find all of ther periods of every class in every building that are stored in the JSON
-	public static void freeTime(JSONObject timetable) {
+	public static void freeTime(JSONObject timetable, double time, int day, int term, String room) {
 		//Create an object to hold all of the unsorted data
 		JSONObject courses = timetable.getJSONObject("timetables").getJSONObject("2017").getJSONObject("6").getJSONObject("courses");
+		
+		int lecturecount = 0, labcount = 0, tutorialcount = 0;
+		
 		
 		//Iterates through the [revious object using a string for the names/keys of the nested objects
 		for (Object key : courses.keySet()) {
@@ -75,6 +102,11 @@ public class parseJSON {
 							for (int i = 0; i < r_periods.length(); i++) {
 								JSONObject period = r_periods.getJSONObject(i);
 								System.out.println(keyStr + ": " + keyStr1 + ": " + period);
+								lecturecount++;
+								if (checkFree(period, time, day, term, room)) {
+									System.out.println("taken");
+									return;
+								}
 							}
 						}
 					}
@@ -96,6 +128,11 @@ public class parseJSON {
 							for (int i = 0; i < r_periods.length(); i++) {
 								JSONObject period = r_periods.getJSONObject(i);
 								System.out.println(keyStr + ": " + keyStr2 + ": " + period);
+								tutorialcount++;
+								if (checkFree(period, time, day, term, room)) {
+									System.out.println("taken");
+									return;
+								}
 							}
 						}
 					}
@@ -117,6 +154,11 @@ public class parseJSON {
 							for (int i = 0; i < r_periods.length(); i++) {
 								JSONObject period = r_periods.getJSONObject(i);
 								System.out.println(keyStr + ": " + keyStr3 + ": " + period);
+								labcount++;
+								if (checkFree(period, time, day, term, room)) {
+									System.out.println("taken");
+									return;
+								}
 							}
 						}
 					}
@@ -124,6 +166,11 @@ public class parseJSON {
 				
 			}
 		}
+		System.out.println(lecturecount);
+		System.out.println(labcount);
+		System.out.println(tutorialcount);
+		System.out.println(room + " is free @ " + time + "!");
+		return;
 	}
 
 	
