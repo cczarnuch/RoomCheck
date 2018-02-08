@@ -1,0 +1,5 @@
+to find all rooms
+1.) remove @ROOM comments from source code
+2.) run awk '!seen[$0]++' rooms.txt > rooms2.txt
+3.) run sort rooms2.txt > rooms.txt
+4.) rm rooms2.txt
