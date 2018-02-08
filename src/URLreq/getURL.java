@@ -14,6 +14,7 @@ public class getURL {
 	public static void main(String[] args) {
 		String json = new String(getJSON("https://www.timetablegenerator.io/api/v2/school/mcmaster/"));
 		createFile(json);
+		System.out.println("File created!");
 	}
 	
 	
@@ -30,12 +31,10 @@ public class getURL {
 			con.setRequestProperty("User-Agent", "Mozilla/5.0");
 			int responseCode = con.getResponseCode();
 			System.out.println("\nSending 'GET' request to URL : " + url);
-			System.out.println("Response Code : " + responseCode);
-			
+			System.out.println("Response Code : " + responseCode + "\n");
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			String json = in.readLine();
 			
-			return json;
+			return in.readLine();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,8 +53,6 @@ public class getURL {
 			bw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			
-			newFile = null;
 		}
 		return;
 	}
