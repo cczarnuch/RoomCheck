@@ -15,9 +15,9 @@ public class parseJSON {
     		System.out.println("Correct use: \"HH:mm\" day(int) term(int) \"room\" building(boolean)\n");
     		return;
     	}
-        JSONObject timetable = JSONtoObj(false);
-        //String time = args[0];
-        String time = "15:30";
+        JSONObject timetable = JSONtoObj(true);
+        String time = args[0];
+        //String time = "15:30";
         Integer hour = 0;
         Boolean building = Boolean.parseBoolean(args[4]);
         

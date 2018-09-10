@@ -43,7 +43,7 @@ public class check {
     //This method is used to find all of the periods of every class in every building that are stored in the JSON
     public static boolean freeTime(JSONObject timetable, String time, int day, int term, String room) throws JSONException, IOException {
         //Create an object to hold all of the unsorted data
-        JSONObject courses = timetable.getJSONObject("timetables").getJSONObject("2017").getJSONObject("6").getJSONObject("courses");
+        JSONObject courses = timetable.getJSONObject("timetables").getJSONObject("2018").getJSONObject("6").getJSONObject("courses");
 
         //@ROOM File newFile = new File("rooms.txt");
         //@ROOM FileWriter fw = new FileWriter(newFile);
@@ -203,7 +203,7 @@ public class check {
   //This method is used to find all of the periods of every class in every building that are stored in the JSON
     public static LinkedList<String> freeTime2(JSONObject timetable, String time, int day, int term, String building) throws JSONException, IOException {
     	//Create an object to hold all of the unsorted data
-        JSONObject courses = timetable.getJSONObject("timetables").getJSONObject("2017").getJSONObject("6").getJSONObject("courses");
+        JSONObject courses = timetable.getJSONObject("timetables").getJSONObject("2018").getJSONObject("6").getJSONObject("courses");
 
         //@ROOM File newFile = new File("rooms.txt");
         //@ROOM FileWriter fw = new FileWriter(newFile);
